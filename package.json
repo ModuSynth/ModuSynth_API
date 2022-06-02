@@ -2,18 +2,26 @@
   "name": "modusynth",
   "version": "1.0.0",
   "description": "",
+  "directories": {
+    "config": "config",
+    "src": "src"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_TLS_REJECT_UNAUTHORIZED=0&& nodemon -e js, yml --watch src src/server.js"
+    "start": "set NODE_TLS_REJECT_UNAUTHORIZED=0&& nodemon -e js, yml --watch src src/server.js",
+    "startlocal": "set NODE_APP_INSTANCE=local&& npm start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "express": "^4.18.1",
     "hpp": "^0.2.3",
     "http": "^0.0.1-security",
     "http2": "^3.3.7",
+    "pg": "^8.7.3",
+    "pg-promise": "^10.11.1",
     "winston": "^3.3.3"
   },
   "devDependencies": {
