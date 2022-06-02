@@ -1,0 +1,26 @@
+{
+  "name": "modusynth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_TLS_REJECT_UNAUTHORIZED=0&& nodemon -e js, yml --watch src src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "hpp": "^0.2.3",
+    "http": "^0.0.1-security",
+    "http2": "^3.3.7",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-vue": "^9.1.0",
+    "nodemon": "^2.0.12",
+    "prettier": "2.6.2"
+  }
+}
