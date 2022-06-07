@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 const hpp = require('hpp');
+const indexRouter = require('../../routes');
 
 app.use(hpp());
 app.use(express.urlencoded({extended: true, limit: '1mb'}));
@@ -17,6 +18,14 @@ app.use(function(req, res, next) {
   console.log('Time:', Date.now());
   next();
 });
+
+app.get('/', (request, response) => {
+  response.json({info: 'Node.js, Express, and Postgres API'});
+});
+
+app.use('/stages', indexRouter.stages);
+app.use('/nodes', indexRouter.nodes);
+
 
 // catch 404 not found
 app.use((req, res, next) => {
