@@ -1,4 +1,5 @@
 module.exports = (router, controller) => {
-  router.get('/allNodes', controller.getAllNodes);
+  router.get('/nodes', controller.getAllNodes);
+  router.post('/', controller.createNode);
   return router;
 };

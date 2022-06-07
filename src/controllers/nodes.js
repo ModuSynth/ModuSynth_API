@@ -14,13 +14,13 @@ const createNode = (request, response) => {
   const {name, type, stage_id} = request.body;
 
   pool.query(
-      'INSERT INTO users (name, type, stage_id) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO nodes (name, type, stage_id) VALUES ($1, $2, $3) RETURNING *',
       [name, type, stage_id],
       (error, results) => {
         if (error) {
           throw error;
         }
-        response.status(201).send(`node added with ID: ${results.rows[0].id}`);
+        response.status(201).json({message: 'node added', data: results.rows[0]});
       });
 };
 

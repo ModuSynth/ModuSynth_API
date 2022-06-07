@@ -10,17 +10,34 @@ const getAllStages = (request, response) => {
 };
 exports.getAllStages = getAllStages;
 
-const createStage = (request, response) => {
-  const {name, type, stage_id} = request.body;
+const getAllNodes = (request, response) => {
+  const {stage_id} = request.params;
+  console.log(stage_id);
 
   pool.query(
-      'INSERT INTO users (name, type, stage_id) VALUES ($1, $2, $3) RETURNING *',
-      [name, type, stage_id],
+      'SELECT * FROM nodes WHERE stage_id=($1);',
+      [stage_id],
       (error, results) => {
         if (error) {
           throw error;
         }
-        response.status(201).send(`stage added with ID: ${results.rows[0].id}`);
+        response.status(200).json(results.rows);
+      });
+};
+exports.getAllNodes = getAllNodes;
+
+const createStage = (request, response) => {
+  const {name} = request.body;
+
+  pool.query(
+      'INSERT INTO stages (name) VALUES ($1) RETURNING *',
+      [name],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        console.log(results);
+        response.status(201).json({message: 'stage added', data: results.rows[0]});
       });
 };
 
