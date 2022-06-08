@@ -1,44 +1,21 @@
-const pool= require('../config/db/index');
+const {callDB} = require('../utils');
 
-const getAllStages = (request, response) => {
-  pool.query('SELECT * FROM stages ORDER BY stage_id ASC', (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
+const getAllStages = async (request, response) => {
+  const data = await callDB('SELECT * FROM stages ORDER BY stage_id ASC', `Get all stages`);
+  response.status(200).json(data);
 };
 exports.getAllStages = getAllStages;
 
-const getAllNodes = (request, response) => {
+const getAllNodes = async (request, response) => {
   const {stage_id} = request.params;
-  console.log(stage_id);
-
-  pool.query(
-      'SELECT * FROM nodes WHERE stage_id=($1);',
-      [stage_id],
-      (error, results) => {
-        if (error) {
-          throw error;
-        }
-        response.status(200).json(results.rows);
-      });
+  const data = await callDB('SELECT * FROM nodes WHERE stage_id=($1);', `Nodes from stage ${stage_id}`, [stage_id]);
+  response.status(200).json(data);
 };
 exports.getAllNodes = getAllNodes;
 
-const createStage = (request, response) => {
+const createStage = async (request, response) => {
   const {name} = request.body;
-
-  pool.query(
-      'INSERT INTO stages (name) VALUES ($1) RETURNING *',
-      [name],
-      (error, results) => {
-        if (error) {
-          throw error;
-        }
-        console.log(results);
-        response.status(201).json({message: 'stage added', data: results.rows[0]});
-      });
+  const data = await callDB('INSERT INTO stages (name) VALUES ($1) RETURNING *', `Node ${name} created`, [name]);
+  response.status(201).json(data);
 };
-
 exports.createStage = createStage;
